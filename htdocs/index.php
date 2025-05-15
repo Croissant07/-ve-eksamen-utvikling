@@ -1,9 +1,10 @@
 <?php
 // Koble til databasen (bruk Docker-containerens navn som vert)
-$servername = "mysql-db";  // Docker-containerens navn
-$username = "root";
-$password = "example_password";  // Passordet du satte i docker-compose.yml
-$dbname = "treningsapp";  // Navn på databasen
+$servername = "mysql-db";  // Viktig: bruk tjenestenavnet i docker-compose
+$username = "user";        // Bruk IKKE "root" om du ikke trenger det
+$password = "pass";
+$dbname = "treningsapp";
+
 
 // Lag forbindelse
 $conn = new mysqli($servername, $username, $password, $dbname);

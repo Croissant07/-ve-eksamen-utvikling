@@ -1,33 +1,21 @@
 version: '3.8'
 
 services:
-  mysql:
+  php-apache:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - ./htdocs:/var/www/html
+    depends_on:
+      - mysql-db
+
+  mysql-db:
     image: mysql:5.7
-    container_name: mysql-db
     environment:
-      MYSQL_ROOT_PASSWORD: example_password  # Sett et passord for root-brukeren
-      MYSQL_DATABASE: treningsapp  # Navn på databasen
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: treningsapp
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
     ports:
       - "3306:3306"
-    volumes:
-      - mysql-data:/var/lib/mysql
-    networks:
-      - app-network
-
-  php-apache:
-    image: php:7.4-apache
-    container_name: php-apache
-    volumes:
-      - ./htdocs:/var/www/html  # Kobler til din lokale katalog med PHP-filene
-    ports:
-      - "8080:8080"  # Porten som Apache-serveren skal bruke
-    networks:
-      - app-network
-
-volumes:
-  mysql-data:
-    driver: local
-
-networks:
-  app-network:
-    driver: bridge
