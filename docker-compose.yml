@@ -6,7 +6,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./htdocs:/var/www/html
+      - ./htdocs:/var/www/php
     depends_on:
       - mysql-db
 
